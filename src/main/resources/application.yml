@@ -2,7 +2,8 @@ micronaut:
   application:
     name: registrationService
 
-  selection: true
+  sender-selection-strategy:
+    selection: true
 
   metrics:
     binders:
