@@ -24,7 +24,6 @@ import java.util.concurrent.CompletableFuture;
  * be used in a production environment.
  */
 @Singleton
-@Requires(env = {Environments.DEVELOPMENT, Environment.TEST})
 public class LastDigitsOfPhoneNumberVerificationCodeSender implements VerificationCodeSender {
 
   @Override
