@@ -41,6 +41,8 @@ public class CloseableRegistrationServiceGrpcBlockingStubSupplier implements Clo
 
     final ManagedChannelBuilder<?> managedChannelBuilder;
 
+    logger.info("start build server supplier");
+
     if (usePlaintext) {
       managedChannelBuilder = ManagedChannelBuilder.forAddress(host, port).usePlaintext();
     } else {
