@@ -20,8 +20,6 @@ import java.util.Optional;
  * never be used in a production environment.
  */
 @Singleton
-@Requires(env = Environments.DEVELOPMENT)
-@Requires(missingBeans = SenderSelectionStrategy.class)
 public class LastDigitsOfPhoneNumberSenderSelectionStrategy implements SenderSelectionStrategy {
 
   private final LastDigitsOfPhoneNumberVerificationCodeSender lastDigitsSender;

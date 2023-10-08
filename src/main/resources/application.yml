@@ -22,7 +22,7 @@ micronaut:
       type: scheduled
       core-pool-size: 16
 
-selection: true
+#selection: true
 
 rate-limits:
   leaky-bucket:
