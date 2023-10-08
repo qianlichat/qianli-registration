@@ -23,6 +23,13 @@ micronaut:
       core-pool-size: 16
 
 #selection: true
+redis:
+  default:
+    cluster:
+      nodes:
+        - "localhost:6379"
+        - "localhost:7000"
+        - "localhost:7001"
 
 rate-limits:
   leaky-bucket:
