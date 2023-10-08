@@ -13,6 +13,8 @@ import io.grpc.TlsChannelCredentials;
 import io.micronaut.core.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
 import org.signal.registration.rpc.RegistrationServiceGrpc;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Closeable;
 import java.io.File;
@@ -29,6 +31,7 @@ public class CloseableRegistrationServiceGrpcBlockingStubSupplier implements Clo
   private final RegistrationServiceGrpc.RegistrationServiceBlockingStub blockingStub;
 
   private static final String DEFAULT_SIGNAL_CERTIFICATE_RESOURCE_NAME = "signal.pem";
+  private final Logger logger = LoggerFactory.getLogger(getClass());
 
   public CloseableRegistrationServiceGrpcBlockingStubSupplier(final String host,
       final int port,
@@ -45,6 +48,7 @@ public class CloseableRegistrationServiceGrpcBlockingStubSupplier implements Clo
 
       if (trustedServerCertificate != null) {
         try {
+          logger.info("trustedServerCertificate != null");
           tlsChannelCredentials = TlsChannelCredentials.newBuilder()
               .trustManager(trustedServerCertificate)
               .build();
@@ -66,6 +70,7 @@ public class CloseableRegistrationServiceGrpcBlockingStubSupplier implements Clo
         }
       }
 
+      logger.info("build ssl server");
       managedChannelBuilder = Grpc.newChannelBuilderForAddress(host, port, tlsChannelCredentials);
     }
 
