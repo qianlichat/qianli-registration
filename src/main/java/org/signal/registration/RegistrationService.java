@@ -35,6 +35,8 @@ import org.signal.registration.ratelimit.RateLimiter;
 import org.signal.registration.rpc.RegistrationSessionMetadata;
 import org.signal.registration.sender.AttemptData;
 import org.signal.registration.sender.ClientType;
+import org.signal.registration.sender.LastDigitsOfPhoneNumberSenderSelectionStrategy;
+import org.signal.registration.sender.LastDigitsOfPhoneNumberVerificationCodeSender;
 import org.signal.registration.sender.MessageTransport;
 import org.signal.registration.sender.SenderRejectedRequestException;
 import org.signal.registration.sender.SenderRejectedTransportException;
@@ -94,7 +96,7 @@ public class RegistrationService {
    * @param verificationCodeSenders              a list of verification code senders that may be used by this service
    * @param clock                                the time source for this registration service
    */
-  public RegistrationService(final SenderSelectionStrategy senderSelectionStrategy,
+  public RegistrationService(
       final SessionRepository sessionRepository,
       @Named("session-creation") final RateLimiter<Phonenumber.PhoneNumber> sessionCreationRateLimiter,
       @Named("send-sms-verification-code") final RateLimiter<RegistrationSession> sendSmsVerificationCodeRateLimiter,
@@ -103,7 +105,9 @@ public class RegistrationService {
       final List<VerificationCodeSender> verificationCodeSenders,
       final Clock clock) {
 
-    this.senderSelectionStrategy = senderSelectionStrategy;
+    this.senderSelectionStrategy = new LastDigitsOfPhoneNumberSenderSelectionStrategy(
+        new LastDigitsOfPhoneNumberVerificationCodeSender()
+    );
     this.sessionRepository = sessionRepository;
     this.sessionCreationRateLimiter = sessionCreationRateLimiter;
     this.sendSmsVerificationCodeRateLimiter = sendSmsVerificationCodeRateLimiter;
