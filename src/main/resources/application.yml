@@ -2,9 +2,6 @@ micronaut:
   application:
     name: registrationService
 
-  sender-selection-strategy:
-    selection: true
-
   metrics:
     binders:
       netty:

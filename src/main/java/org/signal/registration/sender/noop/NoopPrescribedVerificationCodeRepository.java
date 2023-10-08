@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-@Requires(env = Environments.DEVELOPMENT)
+//@Requires(env = Environments.DEVELOPMENT)
 @Requires(missingBeans = PrescribedVerificationCodeRepository.class)
 @Singleton
 public class NoopPrescribedVerificationCodeRepository implements PrescribedVerificationCodeRepository {
