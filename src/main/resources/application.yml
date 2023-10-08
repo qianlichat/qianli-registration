@@ -22,6 +22,8 @@ micronaut:
       type: scheduled
       core-pool-size: 16
 
+selection: true
+
 rate-limits:
   leaky-bucket:
     session-creation:
