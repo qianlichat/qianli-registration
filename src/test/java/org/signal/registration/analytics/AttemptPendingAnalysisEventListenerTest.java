@@ -42,7 +42,7 @@ class AttemptPendingAnalysisEventListenerTest {
     repository = mock(AttemptPendingAnalysisRepository.class);
     when(repository.store(any())).thenReturn(CompletableFuture.completedFuture(null));
 
-    listener = new AttemptPendingAnalysisEventListener(repository, new SimpleMeterRegistry());
+    listener = new AttemptPendingAnalysisEventListener();
   }
 
   @Test
