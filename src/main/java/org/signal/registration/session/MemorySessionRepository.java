@@ -75,7 +75,7 @@ public class MemorySessionRepository implements SessionRepository {
 
     sessionsById.put(sessionId, session);
 
-    logger.info("session created:"+sessionId);
+    logger.info("session created:"+sessionId+", content="+session);
 
     return CompletableFuture.completedFuture(session);
   }
