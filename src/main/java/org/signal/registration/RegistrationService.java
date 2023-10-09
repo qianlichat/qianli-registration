@@ -40,6 +40,7 @@ import org.signal.registration.sender.SenderRejectedRequestException;
 import org.signal.registration.sender.SenderRejectedTransportException;
 import org.signal.registration.sender.SenderSelectionStrategy;
 import org.signal.registration.sender.VerificationCodeSender;
+import org.signal.registration.session.MemorySessionRepository;
 import org.signal.registration.session.RegistrationAttempt;
 import org.signal.registration.session.RegistrationSession;
 import org.signal.registration.session.SessionMetadata;
@@ -48,6 +49,8 @@ import org.signal.registration.util.ClientTypes;
 import org.signal.registration.util.CompletionExceptions;
 import org.signal.registration.util.MessageTransports;
 import org.signal.registration.util.UUIDUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The registration service is the core orchestrator of registration business logic and manages registration sessions
@@ -330,6 +333,7 @@ public class RegistrationService {
     });
   }
 
+  private static final Logger logger = LoggerFactory.getLogger(RegistrationService.class);
   /**
    * Interprets a raw {@code RegistrationSession} and produces {@link RegistrationSessionMetadata} suitable for
    * presentation to remote callers.
@@ -340,6 +344,10 @@ public class RegistrationService {
    */
   public RegistrationSessionMetadata buildSessionMetadata(final RegistrationSession session) {
     final boolean verified = StringUtils.isNotBlank(session.getVerifiedCode());
+    if(verified){
+      logger.info("verified==true");
+      logger.error("tack:",new Throwable());
+    }
 
     final RegistrationSessionMetadata.Builder sessionMetadataBuilder = RegistrationSessionMetadata.newBuilder()
         .setSessionId(session.getId())
