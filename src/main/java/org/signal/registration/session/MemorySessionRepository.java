@@ -22,7 +22,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import org.signal.registration.Environments;
+import org.signal.registration.sender.DynamicSelector;
 import org.signal.registration.util.UUIDUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Singleton
 @Requires(missingBeans = SessionRepository.class)
@@ -54,6 +57,8 @@ public class MemorySessionRepository implements SessionRepository {
         new SessionCompletedEvent(sessionsById.remove(sessionId))));
   }
 
+  private static final Logger logger = LoggerFactory.getLogger(MemorySessionRepository.class);
+
   @Override
   public CompletableFuture<RegistrationSession> createSession(final Phonenumber.PhoneNumber phoneNumber,
       final SessionMetadata sessionMetadata,
@@ -69,6 +74,8 @@ public class MemorySessionRepository implements SessionRepository {
         .build();
 
     sessionsById.put(sessionId, session);
+
+    logger.info("session created:"+sessionId);
 
     return CompletableFuture.completedFuture(session);
   }
